@@ -1,0 +1,73 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+
+# Flutter & Dart
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+.dart_tool/
+pubspec.lock
+
+# IDE & Editor
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Environment variables
+.env*
+!/.env.example
+
+# Android
+/android/key.properties
+/android/local.properties
+/android/app/google-services.json
+/android/.gradle/
+/android/build/
+/android/app/build/
+/android/.cxx/
+
+# iOS
+/ios/Pods/
+/ios/Flutter/ephemeral/
+/ios/Flutter/app.flx
+/ios/Flutter/flutter_assets/
+/ios/.symlinks/
+/ios/Runner/GeneratedPluginRegistrant.*
+/ios/Flutter/App.framework
+/ios/Flutter/Flutter.framework
+/ios/Flutter/Flutter.podspec
+/ios/Flutter/Generated.xcconfig
+
+# macOS
+/macos/Flutter/ephemeral/
+/macos/Pods/
+/macos/.symlinks/
+
+# Linux
+/linux/flutter/ephemeral/
+/linux/flutter/generated_plugin_registrant.cc
+/linux/flutter/generated_plugins.cmake
+
+# Windows
+/windows/flutter/ephemeral/
+/windows/flutter/generated_plugin_registrant.cc
+/windows/flutter/generated_plugins.cmake
+
+# PERBAIKAN: Mengabaikan file installer yang diunduh
+*.deb
+*.dmg
+*.exe
+*.zip

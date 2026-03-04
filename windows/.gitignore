@@ -1,0 +1,38 @@
+# Flutter build files
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+pubspec.lock
+
+# Android Studio
+.idea/
+*.iml
+
+# Xcode
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+
+# Flutter specific
+.flutter-plugins
+.flutter-plugins-dependencies
+.melos_tool
+coverage/
+
+# Dart tool & env
+.dart_tool/
+.env
+
+# VSCode
+.vscode/
+
+# Visual Studio files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+x64/
+x86/
+*.[Cc]ache
+!*.[Cc]ache/
