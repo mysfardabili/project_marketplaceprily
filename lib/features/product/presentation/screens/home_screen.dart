@@ -26,6 +26,7 @@ class HomeScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Preloft'),
+        actions: [
           BadgeIconButton(
             icon: Icons.chat_bubble_outline,
             tooltip: 'Kotak Masuk',
