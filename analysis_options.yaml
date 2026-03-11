@@ -1,20 +1,20 @@
 # analysis_options.yaml
 
-# Meng-include aturan linting dari paket very_good_analysis.
-# Paket ini menyediakan seperangkat aturan yang ketat dan direkomendasikan
-# oleh komunitas untuk menjaga kualitas kode Flutter.
 include: package:very_good_analysis/analysis_options.yaml
 
 analyzer:
-  # Mengecualikan file yang dihasilkan secara otomatis dari analisis.
-  # Ini penting untuk menghindari error linting pada kode yang tidak kita kontrol.
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
 
 linter:
   rules:
-    # Di sini Anda bisa menonaktifkan atau mengubah aturan spesifik jika diperlukan.
-    # Contoh:
-    # public_member_api_docs: false # Menonaktifkan jika Anda tidak ingin menulis docs untuk semua member publik.
-    # prefer_const_constructors: true # Aturan yang baik untuk dipertahankan.
+    # Dinonaktifkan karena terlalu ketat untuk proyek ini
+    public_member_api_docs: false
+    lines_longer_than_80_chars: false
+    avoid_catches_without_on_clauses: false
+    cascade_invocations: false
+    prefer_expression_function_bodies: false
+    always_use_package_imports: false
+    avoid_print: false
+    do_not_use_environment: false
