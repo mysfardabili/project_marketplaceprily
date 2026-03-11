@@ -1,15 +1,19 @@
 // lib/features/product/data/product_repository.dart
 
-import 'dart:typed_data'; // Diperlukan untuk Uint8List
+import 'dart:typed_data';
 
 import 'package:preloft_app/features/product/domain/product_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+/// Repository yang menangani semua operasi CRUD untuk produk.
 class ProductRepository {
+  /// Membuat instance [ProductRepository] dengan [SupabaseClient] yang diberikan.
   ProductRepository(this._client);
   final SupabaseClient _client;
 
-  /// Mengunggah gambar produk menggunakan kontennya (bytes).
+  /// Mengunggah gambar produk menggunakan kontennya [imageBytes].
+  ///
+  /// Mengembalikan URL publik gambar yang berhasil diunggah.
   Future<String> uploadProductImage({
     required Uint8List imageBytes,
     required String fileName,
@@ -17,30 +21,28 @@ class ProductRepository {
   }) async {
     try {
       final imageExtension = fileName.split('.').last.toLowerCase();
-      
-      // --- PERBAIKAN DI SINI ---
-      // Mengoreksi ekstensi 'jpg' menjadi 'jpeg' untuk tipe MIME yang valid.
-      final mimeTypeExtension = imageExtension == 'jpg' ? 'jpeg' : imageExtension;
-      
+      final mimeTypeExtension =
+          imageExtension == 'jpg' ? 'jpeg' : imageExtension;
       final uploadPath = '/$productId/product.$imageExtension';
 
       await _client.storage.from('product-images').uploadBinary(
             uploadPath,
             imageBytes,
             fileOptions: FileOptions(
-              // Gunakan tipe MIME yang sudah dikoreksi
               contentType: 'image/$mimeTypeExtension',
               upsert: true,
             ),
           );
-      
-      return _client.storage.from('product-images').getPublicUrl(uploadPath);
+
+      return _client.storage
+          .from('product-images')
+          .getPublicUrl(uploadPath);
     } catch (e) {
       throw Exception('Gagal mengunggah gambar: $e');
     }
   }
 
-  // Fungsi lain tidak berubah
+  /// Membuat produk baru di database dengan [data] yang diberikan.
   Future<void> createProduct(Map<String, dynamic> data) async {
     try {
       await _client.from('products').insert(data);
@@ -48,20 +50,22 @@ class ProductRepository {
       throw Exception('Gagal membuat produk: $e');
     }
   }
-  
+
+  /// Mengembalikan stream semua produk yang tersedia, dibatasi 100 item.
   Stream<List<ProductModel>> getAllProductsStream() {
     try {
       return _client
           .from('products')
           .stream(primaryKey: ['id'])
           .order('created_at')
-          .limit(100) // Batasi 100 produk terbaru untuk performa
+          .limit(100)
           .map((data) => data.map(ProductModel.fromMap).toList());
     } catch (e) {
       return Stream.error(Exception('Gagal mengambil data produk: $e'));
     }
   }
 
+  /// Mengembalikan stream produk milik pengguna dengan [userId].
   Stream<List<ProductModel>> getMyProductsStream(String userId) {
     try {
       return _client
@@ -71,11 +75,17 @@ class ProductRepository {
           .order('created_at')
           .map((data) => data.map(ProductModel.fromMap).toList());
     } catch (e) {
-      return Stream.error(Exception('Gagal mengambil data produk saya: $e'));
+      return Stream.error(
+        Exception('Gagal mengambil data produk saya: $e'),
+      );
     }
   }
 
-  Future<void> updateProduct(String productId, Map<String, dynamic> data) async {
+  /// Memperbarui produk dengan [productId] menggunakan [data] yang diberikan.
+  Future<void> updateProduct(
+    String productId,
+    Map<String, dynamic> data,
+  ) async {
     try {
       await _client.from('products').update(data).eq('id', productId);
     } catch (e) {
@@ -83,6 +93,7 @@ class ProductRepository {
     }
   }
 
+  /// Menghapus produk dengan [productId] dari database.
   Future<void> deleteProduct(String productId) async {
     try {
       await _client.from('products').delete().eq('id', productId);

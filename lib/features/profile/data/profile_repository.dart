@@ -7,6 +7,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 /// Bertanggung jawab untuk operasi terkait data profil pengguna,
 /// seperti memperbarui informasi pengguna di database Supabase.
 class ProfileRepository {
+  /// Membuat instance [ProfileRepository] dengan [SupabaseClient] yang diberikan.
   ProfileRepository(this._client);
   final SupabaseClient _client;
 

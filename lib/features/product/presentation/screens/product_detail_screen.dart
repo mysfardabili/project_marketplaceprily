@@ -22,7 +22,9 @@ class ProductDetailScreen extends ConsumerWidget {
 
   // ... (fungsi _launchWhatsApp dan _startChat tidak berubah)
   Future<void> _launchWhatsApp(BuildContext context, String waNumber) async {
-    final number = waNumber.startsWith('62') ? waNumber : '62${waNumber.substring(1)}';
+    final number = waNumber.startsWith('62')
+        ? waNumber
+        : '62${waNumber.substring(1)}';
     final url = Uri.parse('https://wa.me/$number');
     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
       if (context.mounted) {
@@ -43,7 +45,9 @@ class ProductDetailScreen extends ConsumerWidget {
     }
     if (currentUser.id == product.sellerId) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Anda tidak bisa chat untuk produk Anda sendiri')),
+        const SnackBar(
+          content: Text('Anda tidak bisa chat untuk produk Anda sendiri'),
+        ),
       );
       return;
     }
@@ -69,9 +73,15 @@ class ProductDetailScreen extends ConsumerWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Konfirmasi Hapus'),
-        content: const Text('Anda yakin ingin menghapus produk ini secara permanen? Tindakan ini tidak bisa dibatalkan.'),
+        content: const Text(
+          'Anda yakin ingin menghapus produk ini secara permanen? '
+          'Tindakan ini tidak bisa dibatalkan.',
+        ),
         actions: [
-          TextButton(onPressed: () => Navigator.of(context).pop(false), child: const Text('Batal')),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Batal'),
+          ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
             style: TextButton.styleFrom(foregroundColor: Colors.red),
@@ -130,7 +140,9 @@ class ProductDetailScreen extends ConsumerWidget {
           }
           return _buildProductDetails(context, ref, product);
         },
-        loading: () => const Center(child: LoadingWidget(message: 'Memuat produk...')),
+        loading: () => const Center(
+          child: LoadingWidget(message: 'Memuat produk...'),
+        ),
         error: (err, stack) => Center(
           child: EmptyStateWidget(
             title: 'Gagal Memuat Produk',
@@ -143,7 +155,11 @@ class ProductDetailScreen extends ConsumerWidget {
   }
 
   Widget _buildProductDetails(BuildContext context, WidgetRef ref, ProductModel product) {
-    final currencyFormatter = NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
+    final currencyFormatter = NumberFormat.currency(
+      locale: 'id_ID',
+      symbol: 'Rp ',
+      decimalDigits: 0,
+    );
 
     return Column(
       children: [
@@ -177,7 +193,13 @@ class ProductDetailScreen extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 24),
-                Text(product.name, style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
+                Text(
+                  product.name,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
                 const SizedBox(height: 8),
                 Text(
                   currencyFormatter.format(product.price),
@@ -187,16 +209,37 @@ class ProductDetailScreen extends ConsumerWidget {
                       ),
                 ),
                 const Divider(height: 32),
-                Text('Deskripsi', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+                Text(
+                  'Deskripsi',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
                 const SizedBox(height: 8),
-                Text(product.description, style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.5)),
+                Text(
+                  product.description,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(height: 1.5),
+                ),
                 const Divider(height: 32),
-                Text('Informasi Penjual', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+                Text(
+                  'Informasi Penjual',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
                 const SizedBox(height: 12),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
                   leading: const CircleAvatar(child: Icon(Icons.store)),
-                  title: Text(product.sellerName, style: const TextStyle(fontWeight: FontWeight.w600)),
+                  title: Text(
+                    product.sellerName,
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
                   subtitle: Text(product.location),
                   trailing: IconButton(
                     icon: Icon(Icons.message, color: Colors.green.shade700),
@@ -222,7 +265,9 @@ class ProductDetailScreen extends ConsumerWidget {
         padding: const EdgeInsets.all(16),
         width: double.infinity,
         child: ElevatedButton.icon(
-          onPressed: adminActionState.isLoading ? null : () => _adminDeleteProduct(context, ref, product.id),
+          onPressed: adminActionState.isLoading
+              ? null
+              : () => _adminDeleteProduct(context, ref, product.id),
           icon: adminActionState.isLoading 
               ? const SizedBox.shrink() 
               : const Icon(Icons.delete_forever_outlined),
