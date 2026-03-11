@@ -30,7 +30,19 @@ void main() {
             email: 'test@example.com',
             password: 'password123',
           ),
-        ).thenAnswer((_) async => AuthResponse(session: Session(accessToken: '', tokenType: '', user: const User(id: '123', appMetadata: {}, userMetadata: {}, aud: '', createdAt: ''))));
+        ).thenAnswer((_) async => AuthResponse(
+              session: Session(
+                accessToken: '',
+                tokenType: '',
+                user: const User(
+                  id: '123',
+                  appMetadata: {},
+                  userMetadata: {},
+                  aud: '',
+                  createdAt: '',
+                ),
+              ),
+            ));
         
         // Act
         // Panggil metode signIn di repository
